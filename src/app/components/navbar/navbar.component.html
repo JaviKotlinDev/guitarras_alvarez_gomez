@@ -1,24 +1,33 @@
 <nav class="bg-gray-900 text-white px-6 py-4 shadow-md">
-
   <div class="container mx-auto flex justify-between items-center">
-
-    <a class="text-2xl font-bold tracking-wide text-white" routerLink="/">Guitarras Álvarez Gómez</a>
+    <a class="text-2xl font-bold tracking-wide" routerLink="/">Guitarras Álvarez Gómez</a>
     
-    <ul class="flex space-x-6 text-sm md:text-base">
-      <li>
-        <a routerLink="/" routerLinkActive="text-blue-400" [routerLinkActiveOptions]="{ exact: true }" class="hover:text-blue-300 transition">Home</a>
-      </li>
-      <li>
-        <a routerLink="/catalogo" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Catálogo</a>
-      </li>
-      <li>
-        <a routerLink="/contacto" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Contáctanos</a>
-      </li>
-      <li>
-        <a routerLink="/sobre-nosotros" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Sobre nosotros</a>
-      </li>
+    <!-- Botón hamburguesa: visible solo en móviles -->
+    <button
+      class="md:hidden focus:outline-none"
+      (click)="toggleMenu()"
+      aria-label="Toggle menu"
+      [attr.aria-expanded]="menuOpen"
+    >
+      <!-- Iconos hamburguesa / cerrar -->
+      <svg *ngIf="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg *ngIf="menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Menú -->
+    <ul
+      class="flex-col md:flex md:flex-row md:space-x-6"
+      [class.hidden]="!menuOpen && isMobile()"
+      [class.flex]="menuOpen || !isMobile()"
+    >
+      <li><a routerLink="/" routerLinkActive="text-blue-400" [routerLinkActiveOptions]="{ exact: true }" class="hover:text-blue-300 transition">Home</a></li>
+      <li><a routerLink="/catalogo" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Catálogo</a></li>
+      <li><a routerLink="/contacto" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Contáctanos</a></li>
+      <li><a routerLink="/sobre-nosotros" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Sobre nosotros</a></li>
     </ul>
-
   </div>
-
 </nav>
