@@ -1,0 +1,24 @@
+<nav class="bg-gray-900 text-white px-6 py-4 shadow-md">
+
+  <div class="container mx-auto flex justify-between items-center">
+
+    <a class="text-2xl font-bold tracking-wide text-white" routerLink="/">Guitarras Álvarez Gómez</a>
+    
+    <ul class="flex space-x-6 text-sm md:text-base">
+      <li>
+        <a routerLink="/" routerLinkActive="text-blue-400" [routerLinkActiveOptions]="{ exact: true }" class="hover:text-blue-300 transition">Home</a>
+      </li>
+      <li>
+        <a routerLink="/catalogo" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Catálogo</a>
+      </li>
+      <li>
+        <a routerLink="/contacto" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Contáctanos</a>
+      </li>
+      <li>
+        <a routerLink="/sobre-nosotros" routerLinkActive="text-blue-400" class="hover:text-blue-300 transition">Sobre nosotros</a>
+      </li>
+    </ul>
+
+  </div>
+
+</nav>
