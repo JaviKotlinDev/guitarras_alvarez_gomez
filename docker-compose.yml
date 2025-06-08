@@ -1,0 +1,7 @@
+services:
+  app:
+    build: .
+    container_name: guitarras_alvarez_gomez
+    ports:
+      - "8220:8220"
+    restart: always
