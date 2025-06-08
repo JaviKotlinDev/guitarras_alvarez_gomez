@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "baseHref": "/guitarras_alvarez_gomez/",
+            "baseHref": "/",
             "outputPath": "dist/guitarras_alvarez_gomez",
             "index": "src/index.html",
             "browser": "src/main.ts",
