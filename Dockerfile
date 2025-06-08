@@ -7,21 +7,17 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copiamos todo y construimos
+# Copiamos todo el proyecto y construimos
 COPY . .
 RUN npm run build
-
-# Verificamos que el build se haya generado correctamente
-RUN echo "Contenido de /app/dist:" && ls -la /app/dist
-RUN echo "Contenido de /app/dist/guitarras_alvarez_gomez:" && ls -la /app/dist/guitarras_alvarez_gomez
 
 # Etapa 2: Servir con Nginx
 FROM nginx:alpine
 
 # Copiamos la build a nginx
-COPY --from=builder /app/dist/guitarras_alvarez_gomez /usr/share/nginx/html
+COPY ./dist/guitarras_alvarez_gomez/browser/ /usr/share/nginx/html/
 
-# Verificamos contenido en nginx
+# Verificamos contenido en nginx (opcional, podés comentarlo si querés dejarlo limpio)
 RUN echo "Contenido de /usr/share/nginx/html:" && ls -la /usr/share/nginx/html
 
 # Exponemos el puerto
