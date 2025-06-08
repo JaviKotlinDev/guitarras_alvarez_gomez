@@ -1,7 +1,7 @@
 services:
-  app:
+  frontend:
     build: .
     container_name: guitarras_alvarez_gomez
     ports:
-      - "8220:8220"
+      - "8220:80"
     restart: always
