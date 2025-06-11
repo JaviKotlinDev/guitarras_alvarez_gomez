@@ -12,4 +12,6 @@ RUN npm run build
 FROM nginx:1.123.3 as prod
 EXPOSE 80
 COPY --from=builder /app/dist/guitarras_alvarez_gomez /usr/share/nginx/html
-CMD ["nginx", '-g', 'daemon off;']
+RUN rm etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+CMD [ "nginx", "-g", "daemon off;"]
