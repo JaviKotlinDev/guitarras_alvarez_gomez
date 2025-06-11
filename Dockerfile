@@ -15,8 +15,9 @@ RUN npm run build -- --base-href=/
 FROM nginx:alpine
 
 # Copiamos la build a nginx
-COPY ./dist/guitarras_alvarez_gomez/ /usr/share/nginx/html/
+COPY ./dist/guitarras_alvarez_gomez/browser /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN ls -la /usr/share/nginx/html
 
 # (Opcional) Verificamos contenido en nginx
 RUN echo "Contenido de /usr/share/nginx/html:" && ls -la /usr/share/nginx/html
