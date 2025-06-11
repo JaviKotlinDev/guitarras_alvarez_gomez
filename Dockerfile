@@ -7,24 +7,22 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copiamos todo el proyecto y construimos
+# Copiamos todo el proyecto y construimos con base-href
 COPY . .
-RUN npm run build
+RUN npm run build -- --base-href=/
 
 # Etapa 2: Servir con Nginx
 FROM nginx:alpine
 
 # Copiamos la build a nginx
-COPY ./dist/guitarras_alvarez_gomez/browser/ /usr/share/nginx/html/
+COPY ./dist/guitarras_alvarez_gomez/ /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Verificamos contenido en nginx (opcional, podés comentarlo si querés dejarlo limpio)
+# (Opcional) Verificamos contenido en nginx
 RUN echo "Contenido de /usr/share/nginx/html:" && ls -la /usr/share/nginx/html
 
-# Exponemos el puerto
 EXPOSE 80
 
-# Healthcheck para validar que esté sirviendo correctamente
 HEALTHCHECK --interval=30s --timeout=3s CMD wget --spider -q http://localhost || exit 1
 
-# Arrancamos nginx
 CMD ["nginx", "-g", "daemon off;"]
