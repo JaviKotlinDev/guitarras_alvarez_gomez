@@ -1,31 +1,15 @@
-# Etapa 1: Build de Angular
-FROM node:18-alpine AS builder
-
+FROM node:18-alpine as dev-deps
 WORKDIR /app
-
-COPY package*.json ./
+COPY package.json package.json
 RUN npm install
 
+FROM node:18-alpine as builder
+WORKDIR /app
+COPY --from=dev-deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Etapa 2: Nginx para servir la app
-FROM nginx:alpine
-
-# Elimina el HTML por defecto
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copia la build desde la etapa builder
-COPY --from=builder /app/dist/guitarras_alvarez_gomez/browser/ /usr/share/nginx/html/
-
-# Configuración custom de Nginx (si tienes una)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Exponemos el puerto
+FROM nginx:1.123.3 as prod
 EXPOSE 80
-
-# Healthcheck (opcional)
-HEALTHCHECK --interval=30s --timeout=3s CMD wget --spider -q http://localhost || exit 1
-
-# Arrancamos nginx
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /app/dist/guitarras_alvarez_gomez /usr/share/nginx/html
+CMD ["nginx", '-g', 'daemon off;']
