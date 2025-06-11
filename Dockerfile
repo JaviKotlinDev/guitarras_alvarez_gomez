@@ -16,7 +16,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copia la build desde la etapa builder
-COPY --from=builder /app/dist/guitarras_alvarez_gomez/browser /usr/share/nginx/html/
+COPY --from=builder /app/dist/guitarras_alvarez_gomez/browser/ /usr/share/nginx/html/
 
 # Configuración custom de Nginx (si tienes una)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
